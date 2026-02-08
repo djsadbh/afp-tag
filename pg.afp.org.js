@@ -1,111 +1,144 @@
-/* pubguru[250716-2e9] prebid[DISABLED] branch[tan] date[08-02-2026 01:47] */
-(()=>{if(/bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|lighthouse/i.test(navigator.userAgent))throw new Error("-- disabling pg script because a bot or crawler was detected");
+<!-- GAM Ads Controller Script - Multi-Domain / Multi-AdUnit Ready -->
+<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script>
+window.googletag = window.googletag || {cmd: []};
+(function(){
 
-window.adUnits=[/* UNCHANGED – EXACT SAME AD UNITS AS PROVIDED */];
+  /*** ==== CONFIGURATION ==== ***/
+  const domain = "afp.org.pk"; // change per domain
 
-window.adBidders={};
+  const adUnits = [
+    {slot:"afp_org_leaderboard", path:"/23329254664/afp.org_leaderboard", sizes:[[300,250],[336,280],[728,90],[970,90]], device:"all", injectAfter:2},
+    {slot:"afp_org_banner1", path:"/23329254664/afp.org_banner1", sizes:[[200,200],[250,250],[300,250],[320,320],[336,280]], device:"all", injectAfter:5},
+    {slot:"afp_org_banner2", path:"/23329254664/afp.org_banner2", sizes:[[200,200],[250,250],[300,250],[320,320],[336,280]], device:"all"},
+    {slot:"afp_org_banner3", path:"/23329254664/afp.org_banner3", sizes:[[200,200],[250,250],[300,250],[320,320],[336,280]], device:"all"},
+    {slot:"afp_org_anchor_desktop", path:"/23329254664/afp.org_Anchor_Desktop", sizes:[[728,90],[970,90]], device:"desktop", anchor:true},
+    {slot:"afp_org_anchor_mobile", path:"/23329254664/afp.org_Anchor_Mobile", sizes:[[300,50],[300,100],[320,50],[320,100]], device:"mobile", anchor:true},
+    {slot:"afp_org_incontent1", path:"/23329254664/afp.org.pk_in-content1", sizes:[[300,50],[300,100],[300,250],[320,50],[320,100],[320,480],[336,280],[480,320],[728,90],[728,250]], device:"all", injectAfter:3},
+    {slot:"afp_org_incontent2", path:"/23329254664/afp.org.pk_in-content2", sizes:[[300,50],[300,100],[300,250],[320,50],[320,100],[320,480],[336,280],[480,320],[728,90],[728,250]], device:"all", injectAfter:6},
+    {slot:"afp_org_incontent3", path:"/23329254664/afp.org.pk_in-content3", sizes:[[300,50],[300,100],[300,250],[320,50],[320,100],[320,480],[336,280],[480,320],[728,90],[728,250]], device:"all", injectAfter:9},
+    {slot:"afp_org_sidebar_left", path:"/23329254664/afp.org_Sidebar_left", sizes:[[120,600],[160,600],[200,200],[250,250],[300,250],[300,600],[336,280]], device:"all"},
+    {slot:"afp_org_sidebar_right", path:"/23329254664/afp.org_Sidebar_right", sizes:[[120,600],[160,600],[200,200],[250,250],[300,250],[300,600],[336,280]], device:"all"},
+    {slot:"afp_org_vignette", path:"/23329254664/Offerwall-Ad-Unit-1526e761a2bb3831", sizes:[[1,1]], device:"all", vignette:true}
+  ];
 
-window.pgGamNetwork={
-  "hasAdxBanditLineItems": false,
-  "collapseEmptyDivs": true,
-  "analyticsUrl": "https://a3.pubguru.net/",
-  "trackURI": false,
-  "trackUTMs": false,
-  "tc_api_base_interval": 45000,
-  "newAnalyticsUrlPercent": 0,
-  "hasAdsenseBanditLineItems": false,
-  "dfpSingleRequest": true,
-  "dynamicAdxFloor": false,
-  "safeframesDesktopFloor": 0,
-  "fixedTechFee": 0,
-  "refreshMax": 0,
-  "timeout": 2000,
-  "refreshTimeout": 0,
-  "multivariate": 0,
-  "hbDecimals": 2,
-  "toUsdConversionRate": 1.0,
-  "displayName": "Shahzaman Bin Aziz <> MonetizeMore",
-  "networkCode": 23330254529,
-  "currencyCode": "USD",
-  "domains": [["afp.org.pk"]],
-  "enableCustomTimeout": false,
-  "imp30": 0,
-  "pv30": 0
-};
+  const refreshTime = 30*1000; // 30 seconds refresh for visible ads
 
-window.pgPublisher={
-  "publisher_name": "Shahzaman Bin Aziz",
-  "Adops_Director": "Anurag Rai",
-  "Adops_Team_Name": "Team #4",
-  "extended_page_report_date_range": false,
-  "is_premium_pub": false
-};
+  /*** ==== HELPER FUNCTIONS ==== ***/
+  function isMobile(){ return /Mobi|Android/i.test(navigator.userAgent); }
 
-window.pgDomain={
-  "name": "afp.org.pk",
-  "cmp": "exempt",
-  "psp": 0,
-  "s2s": false,
-  "spa": false,
-  "lazy": 0,
-  "quiz": 0,
-  "utms": "utm_term, utm_source, utm_campaign, utm_content, utm_medium",
-  "coppa": false,
+  function createAdDiv(slot){
+    const div = document.createElement("div");
+    div.id = "ad-"+slot;
+    div.style.margin = "10px 0";
+    return div;
+  }
 
-  /* PREBID + FLOOR LOGIC DISABLED */
-  "isHbEnabled": false,
-  "rebid": "disabled",
-  "rebidRounds": 0,
-  "rebidThreshold": 0,
-  "rebidPercent": 0,
-  "hbFloorStrategy": null,
-  "floorMethod": null,
-  "floorSource": null,
-  "floorMapDynamic": null,
-  "ghostBidMin": 0,
-  "ghostBidMult": 1,
+  function insertAfter(referenceNode, newNode){
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
 
-  /* FEATURES YOU ASKED TO KEEP */
-  "anchor": true,
-  "autoAd": 1,
-  "chaser": 1,
-  "viewability": 1,
-  "lazyDepth": 1.75,
-  "refreshType": "smart",
-  "refreshMax": 0,
-  "unitCenter": true,
-  "unitMargin": "0",
-  "collapseEmptyDivs": true,
-  "dfpSingleRequest": true,
-  "onpagePgtag": true,
-  "autoAdOnDesktop": true,
-  "autoAdOnHomepage": true,
-  "vignette": "adx",
-  "vignetteDesktop": true,
-  "vignettePercent": 1,
-  "googleAnchor": true,
-  "googleAnchorPosition": "top",
+  function injectContentAds(){
+    const paragraphs = document.querySelectorAll("p");
+    adUnits.forEach(unit=>{
+      if(unit.injectAfter && ((unit.device==="all") || (unit.device==="mobile" && isMobile()) || (unit.device==="desktop" && !isMobile()))){
+        const targetIndex = Math.min(unit.injectAfter, paragraphs.length-1);
+        const div = createAdDiv(unit.slot);
+        insertAfter(paragraphs[targetIndex], div);
+        defineGAMSlot(unit);
+      }
+    });
+  }
 
-  /* GPT + TRAFFIC */
-  "allowCrawlers": false,
-  "trafficCopIvtAction": "block",
-  "trafficCopClickBlocker": true,
-  "trafficCopTimeoutDuration": 2000,
-  "trafficCopAllowFirstImpression": false,
+  function createAnchor(unit){
+    const div = createAdDiv(unit.slot);
+    div.style.position = "fixed";
+    div.style.bottom = "0";
+    div.style.left = "0";
+    div.style.width = "100%";
+    div.style.zIndex = "9999";
+    div.style.background = "transparent";
+    const closeBtn = document.createElement("button");
+    closeBtn.innerHTML = "×";
+    closeBtn.style.position = "absolute";
+    closeBtn.style.right = "5px";
+    closeBtn.style.top = "0";
+    closeBtn.style.background = "#000";
+    closeBtn.style.color = "#fff";
+    closeBtn.style.border = "none";
+    closeBtn.style.fontSize = "16px";
+    closeBtn.style.cursor = "pointer";
+    closeBtn.addEventListener("click", ()=>div.remove());
+    div.appendChild(closeBtn);
+    document.body.appendChild(div);
+    defineGAMSlot(unit);
+  }
 
-  "timeout": 2000,
-  "analyticsUrl": "https://a3.pubguru.net/"
-};
+  function triggerVignette(unit){
+    const div = createAdDiv(unit.slot);
+    div.style.position = "fixed";
+    div.style.top = "0";
+    div.style.left = "0";
+    div.style.width = "100%";
+    div.style.height = "100%";
+    div.style.background = "rgba(0,0,0,0.8)";
+    div.style.zIndex = "99999";
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.justifyContent = "center";
 
-window.pgManagedScripts=[];
-window.pgDomain.configId=19729;
-window.pgDomain.bundleHash="655c7efd66992e337733d65ab984bca2";
-window.pgDomain.adapterHash=window.pgDomain.bundleHash;
+    const adContainer = document.createElement("div");
+    adContainer.id = div.id+"-inner";
+    adContainer.style.background = "#fff";
+    adContainer.style.padding = "10px";
+    adContainer.style.minWidth = "300px";
+    adContainer.style.minHeight = "250px";
+    div.appendChild(adContainer);
 
-window.pg=window.pg||{};
-var e=window.pg;
+    const closeBtn = document.createElement("button");
+    closeBtn.innerHTML = "×";
+    closeBtn.style.position = "absolute";
+    closeBtn.style.right = "10px";
+    closeBtn.style.top = "10px";
+    closeBtn.style.background = "#000";
+    closeBtn.style.color = "#fff";
+    closeBtn.style.border = "none";
+    closeBtn.style.fontSize = "20px";
+    closeBtn.style.cursor = "pointer";
+    closeBtn.addEventListener("click", ()=>div.remove());
+    div.appendChild(closeBtn);
 
-e.preconnect();
-e.loadJS("https://securepubads.g.doubleclick.net/tag/js/gpt.js");
+    document.body.appendChild(div);
+    defineGAMSlot({...unit, slot: div.querySelector("div").id});
+  }
+
+  function defineGAMSlot(unit){
+    googletag.cmd.push(function(){
+      const slot = googletag.defineSlot(unit.path, unit.sizes, "ad-"+unit.slot).addService(googletag.pubads());
+      googletag.enableServices();
+      googletag.display("ad-"+unit.slot);
+
+      if(!unit.vignette && !unit.anchor){
+        const observer = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){
+              setTimeout(()=>{googletag.pubads().refresh([slot])}, refreshTime);
+            }
+          });
+        }, {threshold:0.5});
+        observer.observe(document.getElementById("ad-"+unit.slot));
+      }
+    });
+  }
+
+  /*** ==== INIT ==== ***/
+  googletag.cmd.push(function(){
+    adUnits.forEach(unit=>{
+      if(unit.anchor) createAnchor(unit);
+      else if(unit.vignette) triggerVignette(unit);
+      else injectContentAds();
+    });
+  });
 
 })();
+</script>
